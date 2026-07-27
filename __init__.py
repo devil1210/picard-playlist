@@ -1,3 +1,4 @@
+_api = None
 from picard import log
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
@@ -147,5 +148,7 @@ class GeneratePlaylist(BaseAction):
 
 
 def enable(api: PluginApi):
+    global _api
+    _api = api
     """Called when plugin is enabled."""
     api.register_album_action(GeneratePlaylist)
