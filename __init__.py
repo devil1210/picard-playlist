@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from picard.config import config
+from picard import log
 
 _api = None
 
@@ -5,7 +9,10 @@ def _get_option(key, default=None):
     global _api
     if _api and hasattr(_api, "plugin_config"):
         try:
-            val = __get_option(key)
+            if hasattr(_api.plugin_config, "get"):
+                val = _api.plugin_config.get(key)
+            else:
+                val = _api.plugin_config[key]
             if val is not None:
                 return val
         except Exception:
@@ -19,10 +26,6 @@ def _get_option(key, default=None):
             pass
     return default
 
-_api = None
-from picard import log
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
